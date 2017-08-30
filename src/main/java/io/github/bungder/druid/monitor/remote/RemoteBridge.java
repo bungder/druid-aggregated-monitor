@@ -3,6 +3,7 @@ package io.github.bungder.druid.monitor.remote;
 import com.alibaba.druid.stat.DruidStatService;
 import com.alibaba.druid.support.logging.Log;
 import com.alibaba.druid.support.logging.LogFactory;
+import com.alibaba.fastjson.JSON;
 
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
@@ -60,12 +61,13 @@ public class RemoteBridge {
                 String[] credentials = new String[]{jmxUsername, jmxPassword};
                 env.put(JMXConnector.CREDENTIALS, credentials);
             }
+            LOG.info("连接JMX =======> " + JSON.toJSONString(env));
             JMXConnector jmxc = JMXConnectorFactory.connect(url, env);
             conn = jmxc.getMBeanServerConnection();
         }
     }
 
-    private String getJmxResult(MBeanServerConnection connetion, String url) throws Exception {
+    private String getJmxResult(MBeanServerConnection conn, String url) throws Exception {
         ObjectName name = new ObjectName(DruidStatService.MBEAN_NAME);
 
         String result = (String) conn.invoke(name, "service", new String[]{url},
@@ -93,12 +95,16 @@ public class RemoteBridge {
                 }
             }
         } else {// 连接成功
+
             try {
                 resp = getJmxResult(conn, url);
             } catch (Exception e) {
                 LOG.error("get jmx data error", e);
                 resp = DruidStatService.returnJSONResult(DruidStatService.RESULT_CODE_ERROR,
                         "get data error" + e.getMessage());
+                // 连接失败之后，MBeanServerConnection实例的terminated属性已经设为true了，但是并没有提供方法进行判断，
+                // 先将conn置空，不然不会触发重连
+                conn = null;
             }
         }
         return resp;

@@ -29,6 +29,7 @@ public class RemoteStatViewServlet extends AggregatedResourceServlet {
     private Logger logger = LoggerFactory.getLogger(RemoteStatViewServlet.class);
 
     private Map<String, RemoteBridge> bridgeMap = new LinkedHashMap<>();
+    private List<String> names;
     private ConfigLoader configLoader;
 
     public RemoteStatViewServlet() {
@@ -48,6 +49,7 @@ public class RemoteStatViewServlet extends AggregatedResourceServlet {
             }
             DruidConfig config = configLoader.load();
             ConfigValidator.validate(config, logger);
+
             if(!StringUtils.isEmpty(config.getUsername())) {
                 this.username = config.getUsername();
             }
@@ -66,14 +68,14 @@ public class RemoteStatViewServlet extends AggregatedResourceServlet {
                     this.denyList.add(new IPRange(ip));
                 });
             }
+
             if(!CollectionUtils.isEmpty(config.getInstances())){
-                List<String> names = new LinkedList<>();
+                names = new ArrayList<>(config.getInstances().size());
                 for(DruidInstancesConfig instance : config.getInstances()){
                     bridgeMap.put(instance.getName(), new RemoteBridge(instance.getJmxUrl()));
                     names.add(instance.getName());
                 }
                 Collections.sort(names);
-                DruidInstancesNames.setNames(names);
             }
         } catch (Exception e) {
             logger.error("初始化Druid配置信息失败", e);
@@ -111,7 +113,6 @@ public class RemoteStatViewServlet extends AggregatedResourceServlet {
 
     @Override
     public String listInstances() throws IOException {
-        List<String> names = DruidInstancesNames.getNames();
         String result = FileUtil.readResourceFileText("pages/instances.html", "UTF-8");
         result = result.replaceAll("<%prefix%>", "/" + DruidConfig.VIEW_PATH + "/");
         String list = "";
