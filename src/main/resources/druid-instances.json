@@ -1,0 +1,10 @@
+{
+  "username":"admin",
+  "password":"admin",
+  "instances":[
+    {
+      "jmxUrl":"service:jmx:rmi:///jndi/rmi://127.0.0.1:9876/jmxrmi",
+      "name":"app"
+    }
+  ]
+}
