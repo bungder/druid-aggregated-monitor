@@ -4,10 +4,12 @@
 
 ## 功能
 
-本工程基于druid本身的StatViewServlet进行改造，支持在一个web工程中监控多个druid实例。druid原本的web监控>所支持的以下特性在改造后仍然支持：
+本工程基于druid本身的StatViewServlet进行改造，支持在一个web工程中监控多个druid实例。druid原本的web监控所支持的以下特性在改造后仍然支持：
 
 1. 基于单个账号的访问控制
 2. 基于IP黑白名单的访问控制
+
+修正了当被监控对象重启之后无法重连的bug。
 
 
 ## 配置
