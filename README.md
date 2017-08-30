@@ -25,6 +25,3 @@ mvn clean package
 java -jar target/target/druid-aggregated-monitor-1.0-SNAPSHOT.jar
 ```
 
-## 遗留问题
-
-目前jmx的重连有问题，重连总是报Connection refused的错误。
