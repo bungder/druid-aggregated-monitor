@@ -1,29 +1,35 @@
 <!doctype html>
 <html>
-	<head>
-		<title>Druid Connection Pool Instances</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
-		<link href='<%prefix%>css/bootstrap.min.css' rel="stylesheet" />
-		<link href="<%prefix%>css/style.css" type="text/css" rel="stylesheet"/>
-    	<script type="<%prefix%>text/javascript" src="js/jquery.min.js"></script>
-		<script src="<%prefix%>js/lang.js" type="text/javascript" charset="utf8"></script>
-		<script src="<%prefix%>js/common.js" type="text/javascript" charset="utf8"></script>
-		<script src="<%prefix%>js/bootstrap.min.js" type="text/javascript" charset="utf8"></script>
-	</head>
-	<body>
+<head>
+	<title>Druid Connection Pool Instances</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+	<link href='<%prefix%>css/bootstrap.min.css' rel="stylesheet" />
+	<link href="<%prefix%>css/style.css" type="text/css" rel="stylesheet"/>
+	<script type="<%prefix%>text/javascript" src="js/jquery.min.js"></script>
+	<script src="<%prefix%>js/lang.js" type="text/javascript" charset="utf8"></script>
+	<script src="<%prefix%>js/common.js" type="text/javascript" charset="utf8"></script>
+	<script src="<%prefix%>js/bootstrap.min.js" type="text/javascript" charset="utf8"></script>
+</head>
+<body>
 
-		<div class="container-fluid">
-      		<div class="row-fluid">
-        		<div class="span12">
-          				<h3>
-          					Druid Connection Pool Instances
-          				</h3>
-						<table id="dataTable" class="table table-bordered table-striped responsive-utilities">
-							<tbody><%table_list%></tbody>
-						</table>
-        		</div>
-      		</div>
-    	</div>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<h1>
+				Druid Connection Pool Instances
+			</h1>
+			<table id="dataTable" class="table table-bordered table-striped responsive-utilities">
+				<thead>
+				<tr>
+					<th width="10%">Number</th>
+					<th>Application Name</th>
+				</tr>
+				</thead>
+				<tbody><%table_list%></tbody>
+			</table>
+		</div>
+	</div>
+</div>
 
-	</body>
+</body>
 </html>
