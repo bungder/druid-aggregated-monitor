@@ -1,6 +1,7 @@
 # Druid Aggregated Monitor
 
-集中监控分布式服务中的druid连接池
+集中监控分布式服务中的druid连接池，具体开发思路介绍见：
+[Druid连接池监控的一次改造](https://bungder.github.io/2017/08/31/druid-monitor-remould/)
 
 ## 功能
 
